@@ -1,6 +1,6 @@
 class CreateTableGoalSubgoalTable < ActiveRecord::Migration[5.1]
   def change
-    create_table :goals_subgoals do |t|
+    create_table :goal_subgoals do |t|
       t.integer :goals_id
       t.integer :subgoals_id
     end

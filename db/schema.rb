@@ -12,14 +12,14 @@
 
 ActiveRecord::Schema.define(version: 20180313205545) do
 
+  create_table "goal_subgoals", force: :cascade do |t|
+    t.integer "goals_id"
+    t.integer "subgoals_id"
+  end
+
   create_table "goals", force: :cascade do |t|
     t.string "content"
     t.integer "user_id"
-  end
-
-  create_table "goals_subgoals", force: :cascade do |t|
-    t.integer "goals_id"
-    t.integer "subgoals_id"
   end
 
   create_table "subgoals", force: :cascade do |t|
