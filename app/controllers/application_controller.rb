@@ -9,7 +9,6 @@ class ApplicationController < Sinatra::Base
 
   get '/' do
     erb :index
-    #welcome to fwitter!!!
   end
 
   helpers do
