@@ -4,19 +4,19 @@
   <input type="text" name="content" id="content"  >
   <br><br>
 
-  <label> Add Subgoals for this Goal</label>
+  <label>Click the button to add a Subgoal</label>
   <br>
 
-  <input type="button" onclick="addInput()"/>
+  <input type="button" value="Add" onclick="addInput()"/>
 
-  <span id="responce"></span>
+  <span id="response"></span>
   <script>
   var countBox = 1;
   var boxName = 0;
   function addInput()
   {
-       var boxName="textBox"+countBox;
-  document.getElementById('responce').innerHTML+='<br/><input type="text" id="'+boxName+'" value="'+boxName+'" "  /><br/>';
+       var boxName="subgoal"+countBox;
+  document.getElementById('response').innerHTML+='<br/><input type="text" id="'+boxName+'" value="'+boxName+'" "  /><br/>';
        countBox += 1;
   }
   </script>
