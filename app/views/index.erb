@@ -1,3 +1,21 @@
-<h1>Hello and Welcome to Goal Lister</h1>
-<a href="/login">Log in</a>
-<a href="/signup">Sign up</a>
+<!doctype html>
+<html>
+  <head>
+    <title>Golf Club Organizer</title>
+  </head>
+  <body>
+  
+      <h1>Hello and Welcome to Goal Lister</h1>
+      <% if logged_in? %>
+
+        <a href="/goals/new"> Create Goal </a>
+        <a href="/logout"> Log Out </a>
+        <p>Welcome, <%=@user.username %></p>
+
+      <% else %>
+        <a href="/signup">Sign Up</a>
+        <a href="/login"> Log In </a>
+      <%end %>
+
+  </body>
+</html>
