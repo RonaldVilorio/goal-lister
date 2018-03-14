@@ -35,7 +35,6 @@ class UsersController < ApplicationController
     end
   end
   post '/login' do
-    binding.pry
     @user = User.find_by(name: params[:name], password: params[:password])
     session[:user_id] = @user.id if @user && @user.authenticate(params[:password])
     redirect to :"/goals"
