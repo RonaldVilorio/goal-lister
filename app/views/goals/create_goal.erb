@@ -1,0 +1,32 @@
+
+<form action="/goals" method="post">
+  <label for="content">Goal Content:</label>
+  <input type="text" name="content" id="content"  >
+  <br><br>
+
+  <label> Add Subgoals for this Goal</label>
+  <br>
+
+  <input type="button" onclick="addInput()"/>
+
+  <span id="responce"></span>
+  <script>
+  var countBox = 1;
+  var boxName = 0;
+  function addInput()
+  {
+       var boxName="textBox"+countBox;
+  document.getElementById('responce').innerHTML+='<br/><input type="text" id="'+boxName+'" value="'+boxName+'" "  /><br/>';
+       countBox += 1;
+  }
+  </script>
+
+  <br><br>
+
+  <label>Artist Name:</label>
+  <input type="text" name="artist_name" id="Artist Name">
+  <br><br>
+
+  <input type="submit" value="Create">
+
+</form>
