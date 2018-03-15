@@ -13,12 +13,12 @@ class GoalsController < ApplicationController
   end
   post '/goals' do
     @goal = Goal.create(content: params[:goal]) if !params[:goal].empty?
-    @subgoals = []
+    subgoals = []
     params[:subgoals].each do |key,subgoal|
-      subgoal.strip
-      @subgoals << Subgoal.create(content: subgoal) if subgoal != nil || ""
+      subgoal = subgoal.strip
+      subgoals << Subgoal.create(content: subgoal) if subgoal != nil || subgoal != ""
     end
-    @goal.subgoals << @subgoals
+    @goal.subgoals << subgoals
     @goal.save
     redirect "/goals/#{@goal.id}"
 
