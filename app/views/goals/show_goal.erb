@@ -1,0 +1,11 @@
+<h1>Goal:</h1>
+
+<%=@goal.content%>
+
+<h2>Subgoals for this goal</h2>
+
+<%@goal.subgoals.each do |subgoal|%>
+  <ol>
+    <li><%=subgoal.content%></li>
+  </ol>
+<%end%>

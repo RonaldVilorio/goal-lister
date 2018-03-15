@@ -19,7 +19,8 @@ class GoalsController < ApplicationController
       @subgoals << Subgoal.create(content: subgoal) if subgoal != nil || ""
     end
     @goal.subgoals << @subgoals
-    
+    @goal.save
+    redirect "/goals/#{@goal.id}"
 
   end
 
