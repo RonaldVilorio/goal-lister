@@ -1,7 +1,7 @@
 
 <form action="/goals" method="post">
-  <label for="content">Goal Content:</label>
-  <input type="text" name="content" id="content"  >
+  <label for="goal">Goal Content:</label>
+  <input type="text" name="goal" id="goal">
   <br><br>
 
   <label>Click the button to add a Subgoal</label>
@@ -16,16 +16,13 @@
   function addInput()
   {
        var boxName="subgoal"+countBox;
-  document.getElementById('response').innerHTML+='<br/><input type="text" id="'+boxName+'" value="'+boxName+'" "  /><br/>';
+  document.getElementById('response').innerHTML+='<br/><input type="text" name="subgoals['+boxName+']" id="'+boxName+'" value="'+boxName+'" "  /><br/>';
        countBox += 1;
   }
   </script>
 
   <br><br>
 
-  <label>Artist Name:</label>
-  <input type="text" name="artist_name" id="Artist Name">
-  <br><br>
 
   <input type="submit" value="Create">
 
