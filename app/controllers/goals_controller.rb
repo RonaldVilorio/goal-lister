@@ -8,11 +8,19 @@ class GoalsController < ApplicationController
   end
   # implement a goals/slug route on next line ?
   get '/goals/:id' do
-    @goal = Goal.find_by_slug(params[:slug])
+    @goal = Goal.find_by(params[:id])
     erb :'/goals/show_goal'
   end
   post '/goals' do
-    binding.pry
+    @goal = Goal.create(content: params[:goal]) if !params[:goal].empty?
+    @subgoals = []
+    params[:subgoals].each do |key,subgoal|
+      subgoal.strip
+      @subgoals << Subgoal.create(content: subgoal) if subgoal != nil || ""
+    end
+    @goal.subgoals << @subgoals
+    
+
   end
 
 end
