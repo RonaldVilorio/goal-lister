@@ -33,5 +33,10 @@ class GoalsController < ApplicationController
     binding.pry
 
   end
+  delete '/goals/:id' do
+    @goal = Goal.find_by(params[:id])
+    @goal.delete
+    redirect '/goals'
+  end
 
 end

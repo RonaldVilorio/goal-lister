@@ -24,3 +24,11 @@
   <br><br>
   <input type="submit" value="Edit">
 </form>
+
+<h2>Delete Goal</h2>
+
+<form action="/goals/<%=@goal.id%>" method="post">
+  <input id="hidden" type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete Goal">
+
+</form>
