@@ -1,20 +1,35 @@
 class GoalsController < ApplicationController
   get '/goals' do
-    @goals = Goal.all
-    erb :'/goals/goals'
+    if !logged_in?
+      redirect to :'/login'
+    else
+      @goals = Goal.all
+      erb :'/goals/goals'
+    end
   end
   get '/goals/new' do
-    erb :'/goals/create_goal'
+    if !logged_in?
+      redirect to :'/login'
+    else
+      erb :'/goals/create_goal'
+    end
   end
   # implement a goals/slug route on next line ?
   get '/goals/:id' do
-    @goal = Goal.find_by(params[:id])
-    erb :'/goals/show_goal'
+    if !logged_in?
+      redirect to :'/login'
+    else
+      @goal = Goal.find_by(params[:id])
+      erb :'/goals/show_goal'
+    end
   end
   get '/goals/:id/edit' do
-
-    @goal = Goal.find_by(params[:id])
-    erb :'/goals/edit_goal'
+    if !logged_in?
+      redirect to :'/login'
+    else
+      @goal = Goal.find_by(params[:id])
+      erb :'/goals/edit_goal'
+    end
   end
   post '/goals' do
     @goal = Goal.create(content: params[:goal]) if !params[:goal].empty?
