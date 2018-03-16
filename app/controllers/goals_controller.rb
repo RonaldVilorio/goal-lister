@@ -45,7 +45,21 @@ class GoalsController < ApplicationController
   end
   patch '/goals/:id' do
     @goal = Goal.find_by(params[:id])
+    @goal.content = params[:goal]
+    sgoals = []
+    @goal.subgoals.each do |subgoal|
+      params[:subgoals].each do |key,sgoal|
+        sgoal = sgoal.strip
+        sgoals = Subgoal.create(content: sgoal) if sgoal != nil || sgoal != ""
+        sgoals.collect do |sg|
+          subgoal = sg
+        end
+      end
+    end
+    @goal.save
     binding.pry
+
+
 
   end
   delete '/goals/:id' do
