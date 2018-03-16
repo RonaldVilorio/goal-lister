@@ -11,6 +11,10 @@ class GoalsController < ApplicationController
     @goal = Goal.find_by(params[:id])
     erb :'/goals/show_goal'
   end
+  get '/goals/:id/edit' do
+    @goal = Goal.find_by(params[:id])
+    erb : '/goals/edit_goal'
+  end
   post '/goals' do
     @goal = Goal.create(content: params[:goal]) if !params[:goal].empty?
     subgoals = []
@@ -22,6 +26,10 @@ class GoalsController < ApplicationController
     @goal.save
     redirect "/goals/#{@goal.id}"
 
+  end
+  patch '/goals/:id' do
+    @goal = Goal.find_by(params[:id])
+    
   end
 
 end
