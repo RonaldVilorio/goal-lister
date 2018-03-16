@@ -4,8 +4,20 @@
   <input type="hidden" name="_method" value="patch" id="hidden">
   <label for="goal">Edit Goal</label>
   <input type="text" name="goal" value="" id="content">
-  <input type="submit" value="Edit">
+
 
   <br><br>
   Edit Subgoals for this Goal:
+  <br><br>
+
+  <%@goal.subgoals.each do |subgoal|%>
+    <ul>
+      <li>
+        <label for="subgoal"><%=subgoal.content%></label>
+        <input type="text" name="subgoal'"+1"' " value="" id="subgoal">
+      </li>
+    </ul>
+  <%end%>
+  <br><br>
+  <input type="submit" value="Edit">
 </form>

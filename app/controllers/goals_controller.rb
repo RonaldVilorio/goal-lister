@@ -12,8 +12,9 @@ class GoalsController < ApplicationController
     erb :'/goals/show_goal'
   end
   get '/goals/:id/edit' do
+
     @goal = Goal.find_by(params[:id])
-    erb : '/goals/edit_goal'
+    erb :'/goals/edit_goal'
   end
   post '/goals' do
     @goal = Goal.create(content: params[:goal]) if !params[:goal].empty?
@@ -29,7 +30,8 @@ class GoalsController < ApplicationController
   end
   patch '/goals/:id' do
     @goal = Goal.find_by(params[:id])
-    
+    binding.pry
+
   end
 
 end
