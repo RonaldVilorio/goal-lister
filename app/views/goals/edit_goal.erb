@@ -10,12 +10,15 @@
   Edit Subgoals for this Goal:
   <br><br>
 
+  <%count = 1%>
+
   <%@goal.subgoals.each do |subgoal|%>
     <ul>
       <li>
         <label for="subgoal"><%=subgoal.content%></label>
-        <input type="text" name="subgoals[subgoal<%=+1%>]" value="<%=subgoal.content%>" id="subgoal">
+        <input type="text" name="subgoals[subgoal<%=count%>]" value="<%=subgoal.content%>" id="subgoal<%=count%>">
       </li>
+      <%count = count+1%>
     </ul>
   <%end%>
   <br><br>
