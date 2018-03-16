@@ -9,9 +9,16 @@ class UsersController < ApplicationController
   end
   get '/login' do
     if logged_in?
-      redirect to :"/tweets"
+      redirect to :"/show"
     else
       erb :"/users/login"
+    end
+  end
+  get '/show' do
+    if !logged_in?
+      redirect to :"/login"
+    else
+      erb :"/users/show"
     end
   end
   get '/logout' do
@@ -34,9 +41,15 @@ class UsersController < ApplicationController
     end
   end
   post '/login' do
-    @user = User.find_by(name: params[:name], password: params[:password])
-    session[:user_id] = @user.id if @user && @user.authenticate(params[:password])
-    redirect to :"/goals"
+    @user = User.find_by(name: params[:name])
+    if @user != nil && @user.authenticate(params[:password])
+      session[:user_id] = @user.id
+      redirect to :"/goals"
+    else
+      redirect to :"/login"
+      # add flash message tellig the user inccorect pass or user
+    end
+
   end
 
 
