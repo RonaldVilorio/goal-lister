@@ -44,7 +44,7 @@ class GoalsController < ApplicationController
 
   end
   patch '/goals/:id' do
-  
+
     @goal = Goal.find_by(params[:id])
     @goal.content = params[:goal]
     count = 1
@@ -63,6 +63,9 @@ class GoalsController < ApplicationController
   delete '/goals/:id' do
     @goal = Goal.find_by(params[:id])
     @goal.delete
+    @goal.subgoals.each do |subgoal|
+      subgoal.delete
+    end
     redirect '/goals'
   end
 
