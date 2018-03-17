@@ -38,15 +38,19 @@ class GoalsController < ApplicationController
       subgoal = subgoal.strip
       subgoals << Subgoal.create(content: subgoal) if subgoal != nil || subgoal != ""
     end
-    @user = User.find_by(id: session[:user_id])
-    @user.goals << @goal
-    @goal.subgoals << subgoals
+
     @goal.save
+    @user = User.find_by(id: session[:user_id])
+
+    if @user != nil && @goal.content != ""
+      @user.goals << @goal
+      @goal.subgoals << subgoals
+    end
     redirect "/goals/#{@goal.id}"
 
   end
   patch '/goals/:id' do
-
+    binding.pry
     @goal = Goal.find_by(params[:id])
     @goal.content = params[:goal]
     count = 1
@@ -59,6 +63,10 @@ class GoalsController < ApplicationController
       count = count + 1
     end
     @goal.save
+    @user = User.find_by(id: session[:user_id])
+
+    @user.goals << @goal if @goal.content != "" && @user != nil
+    
     redirect to :"/goals/#{@goal.id}/edit"
 
   end
