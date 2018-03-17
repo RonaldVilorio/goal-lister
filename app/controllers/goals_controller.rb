@@ -44,6 +44,7 @@ class GoalsController < ApplicationController
 
   end
   patch '/goals/:id' do
+  
     @goal = Goal.find_by(params[:id])
     @goal.content = params[:goal]
     count = 1
@@ -51,10 +52,12 @@ class GoalsController < ApplicationController
     @goal.subgoals.each do |subgoal|
       if params[:subgoals]["subgoal#{count}"] != nil || params[:subgoals]["subgoal#{count}"] != ""
         subgoal.content = params[:subgoals]["subgoal#{count}"]
+        subgoal.save
       end
       count = count + 1
     end
     @goal.save
+    redirect to :"/goals/#{@goal.id}/edit"
 
   end
   delete '/goals/:id' do
