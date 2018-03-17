@@ -3,7 +3,7 @@ class GoalsController < ApplicationController
     if !logged_in?
       redirect to :'/login'
     else
-      @goals = Goal.all
+      @user = User.find_by(id: session[:user_id])
       erb :'/goals/goals'
     end
   end
@@ -38,6 +38,8 @@ class GoalsController < ApplicationController
       subgoal = subgoal.strip
       subgoals << Subgoal.create(content: subgoal) if subgoal != nil || subgoal != ""
     end
+    @user = User.find_by(id: session[:user_id])
+    @user.goals << @goal
     @goal.subgoals << subgoals
     @goal.save
     redirect "/goals/#{@goal.id}"
