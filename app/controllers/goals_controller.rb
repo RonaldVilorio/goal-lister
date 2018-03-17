@@ -66,7 +66,7 @@ class GoalsController < ApplicationController
     @user = User.find_by(id: session[:user_id])
 
     @user.goals << @goal if @goal.content != "" && @user != nil
-    
+
     redirect to :"/goals/#{@goal.id}/edit"
 
   end

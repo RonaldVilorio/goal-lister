@@ -1,8 +1,11 @@
 <h1>All goals:</h1>
-
+<%count = 0%>
 <%@user.goals.each do |goal|%>
   <ul>
     <%=goal.content%>
   </ul>
-
+  <%count = count + 1%>
 <%end%>
+<h2>You have a total of <%=count%> goals</h2>
+
+<a href="#">Link to create a goal</a>
