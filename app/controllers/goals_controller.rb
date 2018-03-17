@@ -49,7 +49,9 @@ class GoalsController < ApplicationController
     count = 1
 
     @goal.subgoals.each do |subgoal|
-      subgoal.content = params[:subgoals]["subgoal#{count}"]
+      if params[:subgoals]["subgoal#{count}"] != nil || params[:subgoals]["subgoal#{count}"] != ""
+        subgoal.content = params[:subgoals]["subgoal#{count}"]
+      end
       count = count + 1
     end
     @goal.save
