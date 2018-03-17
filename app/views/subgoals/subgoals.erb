@@ -1,0 +1,8 @@
+<h1>All subgoals</h1>
+
+<%Subgoal.all.each do |subgoal|%>
+  <%=subgoal.content%>
+  <%count = count + 1%>
+<%end%>
+
+<h2>You have a total of <%=count%> subgoals</h2>
