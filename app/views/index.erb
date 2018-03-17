@@ -10,7 +10,7 @@
 
         <a href="/users/show"> Profile</a>
         <a href="/logout"> Log Out </a>
-        <p>Welcome, <%=@user.name %></p>
+        <p>Welcome, <%=current_user.name %></p>
 
       <% else %>
         <a href="/signup">Sign Up</a>
