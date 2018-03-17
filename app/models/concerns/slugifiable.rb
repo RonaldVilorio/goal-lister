@@ -1,13 +1,13 @@
 module Concerns
   module Slugify
     def slug
-      self.username.downcase.gsub(" ",'-')
+      self.name.downcase.gsub(" ",'-')
     end
   end
   module Findable
     def find_by_slug(slug)
       slug = slug.gsub("-", " ")
-      self.all.detect{|i| i.username.downcase == slug}
+      self.all.detect{|i| i.name.downcase == slug}
 
     end
   end
