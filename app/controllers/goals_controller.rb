@@ -46,13 +46,11 @@ class GoalsController < ApplicationController
   patch '/goals/:id' do
     @goal = Goal.find_by(params[:id])
     @goal.content = params[:goal]
-    # binding.pry
+    count = 1
 
     @goal.subgoals.each do |subgoal|
-      params[:subgoals].each do |key,sgoal|
-        sgoal = sgoal.strip
-        subgoal.content = sgoal
-      end
+      subgoal.content = params[:subgoals]["subgoal#{count}"]
+      count = count + 1
     end
     @goal.save
 
