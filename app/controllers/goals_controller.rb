@@ -33,35 +33,29 @@ class GoalsController < ApplicationController
   end
   post '/goals' do
 
-    @goal = Goal.create(content: params[:goal]) if Goal.all.empty? && !params[:goal].empty?
-    if @goal == nil
-      Goal.all.each do |goal|
-        @goal = Goal.create(content: params[:goal]) if goal.content != params[:goal] && !params[:goal].empty?
-      end
-    else
-    end
+
+    @goal = Goal.create(content: params[:goal]) if goal.content != params[:goal] && !params[:goal].empty?
     # goal duplication catch finished
     subgoals = []
-    if Subgoal.all.empty?
+    if subgoals.empty?
       params[:subgoals].each do |key,subgoal|
         subgoal = subgoal.strip
         subgoals << Subgoal.create(content: subgoal) if !subgoal.empty?
       end
     end
 
-    if subgoals.empty?
-      Subgoal.all.each do |sgoal|
-        subgoals.each do |subgoal|
-          subgoals << Subgoal.create(content: subgoal) if sgoal.content != subgoal.content && !subgoal.empty?
-        end
+    subgoals.each do |subgoal|
+      params[:subgoals].each do |key,sgoal|
+        subgoals << Subgoal.create(content: subgoal) if sgoal.content != subgoal.content && !sgoal.empty?
       end
     end
 
     if @goal != nil && @user != nil
-      @goal.save if @goal.content != ""
       @user = User.find_by(id: session[:user_id])
-      @user.goals << @goal
       @goal.subgoals << subgoals if !subgoals.empty?
+      @goal.save if @goal.content != ""
+      @user.goals << @goal
+
       redirect "/goals/#{@goal.id}"
     else
       redirect "/goals"
