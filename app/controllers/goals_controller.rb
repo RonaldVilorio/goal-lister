@@ -32,7 +32,6 @@ class GoalsController < ApplicationController
     end
   end
   post '/goals' do
-    binding.pry
     @user = User.find_by(id: session[:user_id])
 
     @goal = Goal.create(content: params[:goal]) if !params[:goal].empty? && @user.goals.empty? && @user != nil
