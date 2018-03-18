@@ -32,11 +32,21 @@ class GoalsController < ApplicationController
     end
   end
   post '/goals' do
-    @goal = Goal.create(content: params[:goal]) if !params[:goal].empty?
+
+    @goal = Goal.create(content: params[:goal]) if Goal.all.empty? && !params[:goal].empty?
+
+    Goal.all.each do |goal|
+      @goal = Goal.create(content: params[:goal]) if goal.content != params[:goal] && !params[:goal].empty?
+    end
+# goal duplication catch finished
     subgoals = []
     params[:subgoals].each do |key,subgoal|
       subgoal = subgoal.strip
-      subgoals << Subgoal.create(content: subgoal) if subgoal != nil || subgoal != ""
+      Subgoal.all.each do |sgoal|
+        if sgoal.content != subgoal.content
+          subgoals << Subgoal.create(content: subgoal) if subgoal != nil || subgoal != ""
+        end
+      end
     end
 
     @goal.save
