@@ -32,6 +32,7 @@ class GoalsController < ApplicationController
     end
   end
   post '/goals' do
+    binding.pry
     @user = User.find_by(id: session[:user_id])
 
     @goal = Goal.create(content: params[:goal]) if !params[:goal].empty? && @user.goals.empty? && @user != nil
@@ -48,11 +49,11 @@ class GoalsController < ApplicationController
         subgoal = subgoal.strip
         subgoals << Subgoal.create(content: subgoal) if !subgoal.empty?
       end
-    end
-
-    subgoals.each do |subgoal|
-      params[:subgoals].each do |key,sgoal|
-        subgoals << Subgoal.create(content: subgoal) if sgoal.content != subgoal.content && !sgoal.empty?
+    else
+      subgoals.each do |subgoal|
+        params[:subgoals].each do |key,sgoal|
+          subgoals << Subgoal.create(content: subgoal) if sgoal != subgoal.content && !sgoal.empty?
+        end
       end
     end
 
@@ -60,7 +61,6 @@ class GoalsController < ApplicationController
       @goal.subgoals << subgoals if !subgoals.empty?
       @goal.save if @goal.content != ""
       @user.goals << @goal
-
       redirect "/goals/#{@goal.id}"
     else
       redirect "/goals"
