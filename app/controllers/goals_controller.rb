@@ -39,38 +39,37 @@ class GoalsController < ApplicationController
         @goal = Goal.create(content: params[:goal]) if goal.content != params[:goal] && !params[:goal].empty?
       end
     else
-      # add statement for when goal is duplicate which means goal is nil
     end
     # goal duplication catch finished
-    # add similar statement to subgoals
     subgoals = []
-    params[:subgoals].each do |key,subgoal|
-      subgoal = subgoal.strip
-      subgoals << Subgoal.create(content: subgoal) if Subgoal.all.empty? && !subgoal.empty?
+    if Subgoal.all.empty?
+      params[:subgoals].each do |key,subgoal|
+        subgoal = subgoal.strip
+        subgoals << Subgoal.create(content: subgoal) if !subgoal.empty?
+      end
     end
 
     if subgoals.empty?
       Subgoal.all.each do |sgoal|
         subgoals.each do |subgoal|
           subgoals << Subgoal.create(content: subgoal) if sgoal.content != subgoal.content && !subgoal.empty?
-          binding.pry
         end
       end
     end
 
-
-    @goal.save
-    @user = User.find_by(id: session[:user_id])
-
-    if @user != nil && @goal.content != ""
+    if @goal != nil && @user != nil
+      @goal.save if @goal.content != ""
+      @user = User.find_by(id: session[:user_id])
       @user.goals << @goal
-      @goal.subgoals << subgoals
+      @goal.subgoals << subgoals if !subgoals.empty?
+      redirect "/goals/#{@goal.id}"
+    else
+      redirect "/goals"
     end
-    redirect "/goals/#{@goal.id}"
 
   end
   patch '/goals/:id' do
-    binding.pry
+
     @goal = Goal.find_by(params[:id])
     @goal.content = params[:goal]
     count = 1
