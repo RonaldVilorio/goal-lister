@@ -40,14 +40,28 @@ class GoalsController < ApplicationController
     end
 # goal duplication catch finished
     subgoals = []
+    # params[:subgoals].each do |key,subgoal|
+    #   subgoal = subgoal.strip
+    #   Subgoal.all.each do |sgoal|
+    #     if Subgoal.all.empty? && !subgoal.empty?
+    #       subgoals << Subgoal.create(content: subgoal)
+    #     elsif sgoal.content != subgoal.content
+    #       subgoals << Subgoal.create(content: subgoal) if !subgoal.empty?
+    #     end
+    #   end
+    # end
     params[:subgoals].each do |key,subgoal|
       subgoal = subgoal.strip
-      Subgoal.all.each do |sgoal|
-        if sgoal.content != subgoal.content
-          subgoals << Subgoal.create(content: subgoal) if subgoal != nil || subgoal != ""
-        end
+      subgoals << Subgoal.create(content: subgoal) if Subgoal.all.empty? && !subgoal.empty?
+    end
+
+    Subgoal.all.each do |sgoal|
+      subgoals.each do |subgoal|
+        subgoals << Subgoal.create(content: subgoal) if sgoal.content != subgoal.content && !subgoal.empty?
       end
     end
+    binding.pry
+
 
     @goal.save
     @user = User.find_by(id: session[:user_id])
