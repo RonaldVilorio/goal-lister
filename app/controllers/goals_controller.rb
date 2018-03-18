@@ -34,11 +34,12 @@ class GoalsController < ApplicationController
   post '/goals' do
 
     @goal = Goal.create(content: params[:goal]) if Goal.all.empty? && !params[:goal].empty?
-
-    Goal.all.each do |goal|
-      @goal = Goal.create(content: params[:goal]) if goal.content != params[:goal] && !params[:goal].empty?
+    if @goal == nil
+      Goal.all.each do |goal|
+        @goal = Goal.create(content: params[:goal]) if goal.content != params[:goal] && !params[:goal].empty?
+      end
     end
-# goal duplication catch finished
+    # goal duplication catch finished
     subgoals = []
     params[:subgoals].each do |key,subgoal|
       subgoal = subgoal.strip
@@ -50,6 +51,7 @@ class GoalsController < ApplicationController
         subgoals << Subgoal.create(content: subgoal) if sgoal.content != subgoal.content && !subgoal.empty?
       end
     end
+    binding.pry
 
     @goal.save
     @user = User.find_by(id: session[:user_id])
