@@ -18,6 +18,13 @@ class SubgoalsController < ApplicationController
   end
 
   post '/subgoals' do
+    binding.pry
+
+    @user = User.find_by(id: session[:user_id])
+    @goals = []
+    params[:goals].each do |goal|
+      @goals << Goal.find_by(id: goal.to_i)
+    end
 
   end
 

@@ -1,6 +1,5 @@
 <form action="/subgoals" method="post">
 
-
   <label>Click the button to add a Subgoal</label>
   <br>
 
@@ -22,11 +21,11 @@
   <label>Pick a goal/goals to add these subgoals to</label>
   <br><br>
 
-
     <%@user.goals.each do |goal|%>
-      <li><%=goal.content%></li>
+      <li><input type="checkbox" name="goals[ids][]" value="<%=goal.id%>" id="<%=goal.content%>"><%=goal.content%></li>
     <%end%>
 
+    <br>
 
   <input type="submit" value="Create">
 
