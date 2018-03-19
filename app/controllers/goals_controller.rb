@@ -42,7 +42,7 @@ class GoalsController < ApplicationController
         goal.content = goal.content.downcase.strip
         params[:goal] = params[:goal].downcase.strip
         if goal.content == params[:goal]
-          flash[:message] = "No duplicate goals or subgoals"
+          flash[:message] = "No duplicate goals"
           redirect "/goals/new"
         else
           @goal = Goal.create(content: params[:goal])
@@ -51,12 +51,12 @@ class GoalsController < ApplicationController
     end
     @user.goals << @goal
 
-
       if @goal.subgoals.empty?
         params[:subgoals].each do |key,sgoal|
           sgoal = sgoal.strip
           if !sgoal.empty?
             @goal.subgoals << Subgoal.create(content: sgoal)
+            @goal.save
           elsif sgoal.empty?
             flash[:message] = "You can't submit empty subgoals"
             redirect "/goals/new"
@@ -65,23 +65,19 @@ class GoalsController < ApplicationController
       else
         @goal.subgoals.each do |subgoal|
           params[:subgoals].each do |key,sgoal|
-            sgoal = sgoal.downcase
-            subgoal = subgoal.downcase
+            sgoal = sgoal.downcase.strp
+            subgoal = subgoal.downcase.strip
             if sgoal == subgoal.content && !sgoal.empty?
-              flash[:message] = "No duplicate goals or subgoals"
+              flash[:message] = "No duplicate subgoal for the same goal"
               redirect "/goals/new"
             else
               @goal.subgoals << Subgoal.create(content: sgoal)
+              @goal.save
             end
           end
         end
       end
-
-
-
-
-
-      @goal.save
+  
       redirect "/goals/#{@goal.id}"
 
   end
