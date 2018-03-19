@@ -72,23 +72,28 @@ class GoalsController < ApplicationController
   end
   patch '/goals/:id' do
 
-    @goal = Goal.find_by(params[:id])
-    @goal.content = params[:goal]
-    count = 1
-
-    @goal.subgoals.each do |subgoal|
-      if params[:subgoals]["subgoal#{count}"] != nil || params[:subgoals]["subgoal#{count}"] != ""
-        subgoal.content = params[:subgoals]["subgoal#{count}"]
-        subgoal.save
-      end
-      count = count + 1
-    end
-    @goal.save
     @user = User.find_by(id: session[:user_id])
 
-    @user.goals << @goal if @goal.content != "" && @user != nil
+    @goal = Goal.find_by(params[:id])
+    if @goal.user == @user
+      @goal.content = params[:goal]
+      count = 1
 
-    redirect to :"/goals/#{@goal.id}/edit"
+      @goal.subgoals.each do |subgoal|
+        if params[:subgoals]["subgoal#{count}"] != nil || params[:subgoals]["subgoal#{count}"] != ""
+          subgoal.content = params[:subgoals]["subgoal#{count}"]
+          subgoal.save
+        end
+        count = count + 1
+      end
+      @goal.save
+      @user = User.find_by(id: session[:user_id])
+
+      @user.goals << @goal if @goal.content != "" && @user != nil
+      redirect to :"/goals/#{@goal.id}/edit"
+    else
+      "You cannot edit this goal"
+    end
 
   end
   delete '/goals/:id' do
