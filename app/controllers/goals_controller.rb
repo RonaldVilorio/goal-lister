@@ -32,24 +32,35 @@ class GoalsController < ApplicationController
     end
   end
   post '/goals' do
+
     @user = User.find_by(id: session[:user_id])
 
     @goal = Goal.create(content: params[:goal]) if !params[:goal].empty? && @user.goals.empty? && @user != nil
 
     if @goal == nil && @user != nil
       @user.goals.each do |goal|
-        @goal = Goal.create(content: params[:goal]) if goal.content != params[:goal]
+        goal.content = goal.content.downcase.strip
+        params[:goal] = params[:goal].downcase.strip
+        if goal.content == params[:goal]
+          flash[:message] = "No duplicate goals or subgoals"
+          redirect "/goals/new"
+        else
+          @goal = Goal.create(content: params[:goal])
+        end
       end
     end
+    @user.goals << @goal
 
-    if @goal == nil
-      "No duplicate goals or subgoals"
-    else
-      @user.goals << @goal
+
       if @goal.subgoals.empty?
         params[:subgoals].each do |key,sgoal|
           sgoal = sgoal.strip
-          @goal.subgoals << Subgoal.create(content: sgoal) if !sgoal.empty?
+          if !sgoal.empty?
+            @goal.subgoals << Subgoal.create(content: sgoal)
+          else
+            flash[:message] = "You can't submit empty subgoals"
+            redirect "/goals/new"
+          end
         end
       else
         @goal.subgoals.each do |subgoal|
@@ -60,10 +71,10 @@ class GoalsController < ApplicationController
           end
         end
       end
-    end
 
     if @goal == nil
-      "No duplicate goals or subgoals"
+      flash[:message] = "No duplicate goals or subgoals"
+      redirect "/goals/new"
     else
       @goal.save
       redirect "/goals/#{@goal.id}"
