@@ -32,38 +32,42 @@ class GoalsController < ApplicationController
     end
   end
   post '/goals' do
-
+  
     @user = User.find_by(id: session[:user_id])
 
     @goal = Goal.create(content: params[:goal]) if !params[:goal].empty? && @user.goals.empty? && @user != nil
 
     if @goal == nil && @user != nil
       @user.goals.each do |goal|
-        @goal = Goal.create(content: params[:goal]) if goal.content != params[:goal] && !params[:goal].empty?
+        @goal = Goal.create(content: params[:goal]) if goal.content != params[:goal]
       end
     end
-    @user.goals << @goal
 
-    if @goal.subgoals.empty?
-      params[:subgoals].each do |key,sgoal|
-        sgoal = sgoal.strip
-        @goal.subgoals << Subgoal.create(content: sgoal) if !sgoal.empty?
-      end
+    if @goal == nil
+      "No duplicate goals or subgoals"
     else
-      @goal.subgoals.each do |subgoal|
+      @user.goals << @goal
+      if @goal.subgoals.empty?
         params[:subgoals].each do |key,sgoal|
-          sgoal = sgoal.downcase
-          subgoal = subgoal.downcase
-          @goal.subgoals << Subgoal.create(content: sgoal) if sgoal != subgoal.content && !sgoal.empty?
+          sgoal = sgoal.strip
+          @goal.subgoals << Subgoal.create(content: sgoal) if !sgoal.empty?
+        end
+      else
+        @goal.subgoals.each do |subgoal|
+          params[:subgoals].each do |key,sgoal|
+            sgoal = sgoal.downcase
+            subgoal = subgoal.downcase
+            @goal.subgoals << Subgoal.create(content: sgoal) if sgoal != subgoal.content && !sgoal.empty?
+          end
         end
       end
     end
 
-    if @goal != nil
+    if @goal == nil
+      "No duplicate goals or subgoals"
+    else
       @goal.save
       redirect "/goals/#{@goal.id}"
-    else
-      "No duplicate goals or subgoals"
     end
 
   end
