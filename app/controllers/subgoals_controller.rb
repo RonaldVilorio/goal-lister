@@ -3,9 +3,7 @@ class SubgoalsController < ApplicationController
     if !logged_in?
       redirect to :'/login'
     else
-      binding.pry
-      # find the goal that has these specific subgoals
-      @user = U.find_by(id: params[:user_id])
+      @user = User.find_by(id: session[:user_id])
       erb :'/subgoals/subgoals'
     end
   end
