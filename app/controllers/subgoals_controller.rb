@@ -8,7 +8,6 @@ class SubgoalsController < ApplicationController
     end
   end
 
-
   get '/subgoals/delete' do
     erb :'/subgoals/subgoals_del'
   end
@@ -32,7 +31,6 @@ class SubgoalsController < ApplicationController
       end
     end
     redirect to '/goals'
-
   end
 
   delete '/subgoals' do

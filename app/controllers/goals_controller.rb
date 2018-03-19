@@ -14,7 +14,6 @@ class GoalsController < ApplicationController
       erb :'/goals/create_goal'
     end
   end
-  # implement a goals/slug route on next line ?
   get '/goals/:id' do
     if !logged_in?
       redirect to :'/login'

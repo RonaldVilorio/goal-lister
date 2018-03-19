@@ -25,13 +25,18 @@
   <%= flash[:message] %>
 <% end %>
 
+<h2>Complete and delete goal</h2>
+<form action="index.html" method="post">
+
+</form>
+
 <h2>Delete Goal</h2>
 
 <form action="/goals/<%=@goal.id%>" method="post">
   <input id="hidden" type="hidden" name="_method" value="delete">
   <input type="submit" value="Delete Goal">
-
 </form>
+
 <a href="/show">back to profile</a>
 <% if flash.has?(:message) %>
   <%= flash[:message] %>
