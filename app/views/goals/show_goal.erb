@@ -9,7 +9,13 @@
     <li><%=subgoal.content%></li>
   </ul>
 <%end%>
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
 
+<br>
+<a href="/subgoals/new">Create more subgoals for your goals</a>
+<br><br>
 <a href="/goals/<%=@goal.id%>/edit">Edit Goal</a>
 <a href="/goals">Back to Goals</a>
 <a href="/show">Back to profile</a>

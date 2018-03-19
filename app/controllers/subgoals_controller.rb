@@ -18,13 +18,27 @@ class SubgoalsController < ApplicationController
   end
 
   post '/subgoals' do
-    binding.pry
-
-    @user = User.find_by(id: session[:user_id])
     @goals = []
-    params[:goals].each do |goal|
-      @goals << Goal.find_by(id: goal.to_i)
+    params[:goal_ids].each do |id|
+      @goals << Goal.find_by(id: id.to_i)
     end
+
+    @goals.each do |goal|
+      goal.subgoals.each do |subgoal|
+        params[:subgoals].each do |key,sgoal|
+          sgoal = sgoal.downcase.strip
+          subgoal.content = subgoal.content.downcase.strip
+          if sgoal == subgoal.content && !sgoal.empty?
+            flash[:message] = "No duplicate subgoal for the same goal"
+            redirect "/goals/#{goal.id}"
+          else
+            goal.subgoals << Subgoal.create(content: sgoal)
+            goal.save
+          end
+        end
+      end
+    end
+    redirect to '/goals'
 
   end
 
