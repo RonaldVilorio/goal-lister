@@ -26,15 +26,8 @@ class SubgoalsController < ApplicationController
     @goals.each do |goal|
       goal.subgoals.each do |subgoal|
         params[:subgoals].each do |key,sgoal|
-          sgoal = sgoal.downcase.strip
-          subgoal.content = subgoal.content.downcase.strip
-          if sgoal == subgoal.content && !sgoal.empty?
-            flash[:message] = "No duplicate subgoal for the same goal"
-            redirect "/goals/#{goal.id}"
-          else
-            goal.subgoals << Subgoal.create(content: sgoal)
-            goal.save
-          end
+          goal.subgoals << Subgoal.create(content: sgoal)
+          goal.save
         end
       end
     end
