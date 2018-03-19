@@ -77,7 +77,7 @@ class GoalsController < ApplicationController
           end
         end
       end
-  
+
       redirect "/goals/#{@goal.id}"
 
   end
@@ -108,12 +108,21 @@ class GoalsController < ApplicationController
 
   end
   delete '/goals/:id' do
-    @goal = Goal.find_by(params[:id])
-    @goal.delete
-    @goal.subgoals.each do |subgoal|
-      subgoal.delete
+
+    @user = User.find_by(id: session[:user_id])
+    @goal = Goal.find_by(id: params[:id])
+    if @goal.user == @user
+      @goal.delete
+      @goal.subgoals.each do |subgoal|
+        subgoal.delete
+      end
+      redirect '/goals'
+    else
+      flash[:message] = "You can't delete this goal"
+      redirect to :"/goals/#{@goal.id}/edit"
     end
-    redirect '/goals'
+
+
   end
 
 end

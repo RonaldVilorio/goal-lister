@@ -29,3 +29,6 @@
   <input type="submit" value="Delete Goal">
 
 </form>
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
