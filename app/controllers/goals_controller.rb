@@ -30,6 +30,17 @@ class GoalsController < ApplicationController
       erb :'/goals/edit_goal'
     end
   end
+  get '/goals/complete' do
+    erb :'/goals/complete_goals'
+  end
+  post '/goals/complete/:id' do
+
+    @goal = Goal.find_by(id: params[:id])
+    session[:goal_id] = @goal.id
+    # to dissociate from it's user above code
+    redirect "/goals/complete"
+  end
+
   post '/goals' do
 
     @user = User.find_by(id: session[:user_id])
@@ -91,9 +102,8 @@ class GoalsController < ApplicationController
 
   end
   delete '/goals/:id' do
-
-    @user = User.find_by(id: session[:user_id])
     @goal = Goal.find_by(id: params[:id])
+    @user = User.find_by(id: session[:user_id])
     if @goal.user == @user
       @goal.delete
       @goal.subgoals.each do |subgoal|
