@@ -44,11 +44,10 @@ class UsersController < ApplicationController
     @user = User.find_by(name: params[:name])
     if @user != nil && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect to :"/goals"
+      redirect to :"/show"
     else
       flash[:message] = "Wrong password and/or username"
       redirect to :"/login"
-
     end
 
   end

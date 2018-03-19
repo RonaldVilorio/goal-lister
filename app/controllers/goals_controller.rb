@@ -103,7 +103,7 @@ class GoalsController < ApplicationController
       @user.goals << @goal if @goal.content != "" && @user != nil
       redirect to :"/goals/#{@goal.id}/edit"
     else
-      "You cannot edit this goal"
+      flash[:message] = "You can't edit this goal"
     end
 
   end
@@ -119,7 +119,6 @@ class GoalsController < ApplicationController
       redirect '/goals'
     else
       flash[:message] = "You can't delete this goal"
-      redirect to :"/goals/#{@goal.id}/edit"
     end
 
 
