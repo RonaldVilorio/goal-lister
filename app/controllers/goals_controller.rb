@@ -27,12 +27,11 @@ class GoalsController < ApplicationController
     if !logged_in?
       redirect to :'/login'
     else
-      @goal = Goal.find_by(params[:id])
+      @goal = Goal.find_by( id: params[:id])
       erb :'/goals/edit_goal'
     end
   end
   post '/goals' do
-
     @user = User.find_by(id: session[:user_id])
 
     @goal = Goal.create(content: params[:goal]) if !params[:goal].empty? && @user.goals.empty? && @user != nil

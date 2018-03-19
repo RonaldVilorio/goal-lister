@@ -7,6 +7,8 @@ class SubgoalsController < ApplicationController
       erb :'/subgoals/subgoals'
     end
   end
+
+  
   get '/subgoals/delete' do
     erb :'/subgoals/subgoals_del'
   end
