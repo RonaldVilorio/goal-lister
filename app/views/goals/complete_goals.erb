@@ -1,7 +1,7 @@
 <h2>Recently finished Goal</h2>
-<%=@goal%>
+<%=@goal.content%>
 
 <h2>Recently finished Subgoals</h2>
-<% @subgoals.each do |subgoal| %>
-  <%=subgoal%>
+<% @goal.subgoals.each do |subgoal| %>
+  <li><%=subgoal.content%></li>
 <%end%>

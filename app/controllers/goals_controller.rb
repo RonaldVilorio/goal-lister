@@ -14,16 +14,15 @@ class GoalsController < ApplicationController
       erb :'/goals/create_goal'
     end
   end
-  get '/goals/complete/:goal/:subgoals' do
+  get '/goals/complete/:goal' do
     if !logged_in?
       redirect to :'/login'
     else
-    # use regex to trim the subgoals
-      @goal = params[:goal]
-      @subgoals = params[:subgoals]
+      @goal = Goal.find_by(id: params[:goal])
       erb :'/goals/complete_goals'
     end
   end
+
   get '/goals/:id' do
     if !logged_in?
       redirect to :'/login'
@@ -41,15 +40,12 @@ class GoalsController < ApplicationController
     end
   end
 
-  delete '/goals/complete/:id' do
-    @goal = Goal.find_by(id: params[:id])
-    @cloned_goal = @goal.clone
-    @subgoals = []
-    @subgoals = @cloned_goal.subgoals.map do |subgoal|
-       subgoal.content
-    end
 
-    redirect "/goals/complete/#{@cloned_goal.content}/#{@subgoals}"
+  post '/goals/complete/:id' do
+    @user = User.find_by(id: session[:user_id])
+    @goal = Goal.find_by(id: params[:id])
+    @user.goals.delete(@goal)
+    redirect "/goals/complete/#{@goal.id}"
   end
 
   post '/goals' do
