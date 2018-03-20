@@ -8,9 +8,6 @@ class SubgoalsController < ApplicationController
     end
   end
 
-  get '/subgoals/delete' do
-    erb :'/subgoals/subgoals_del'
-  end
   get '/subgoals/new' do
     @user = User.find_by(id: session[:user_id])
     erb :'/subgoals/create_subgoal'
@@ -33,12 +30,6 @@ class SubgoalsController < ApplicationController
     redirect to '/goals'
   end
 
-  delete '/subgoals' do
-    Subgoal.all.each do |subgoal|
-      subgoal.delete
-    end
-    redirect '/subgoals'
 
-  end
 
 end
