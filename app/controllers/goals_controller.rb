@@ -14,11 +14,14 @@ class GoalsController < ApplicationController
       erb :'/goals/create_goal'
     end
   end
-  get '/goals/complete/:goal' do
+  get '/goals/complete' do
     if !logged_in?
       redirect to :'/login'
     else
-      @goal = Goal.find_by(id: params[:goal])
+      @goal = Goal.find_by(id: session[:goal_id])
+      @user = User.find_by(id: session[:user_id])
+      @user_clone = @user.clone
+      @user_clone.goals << @goal
       erb :'/goals/complete_goals'
     end
   end
@@ -45,7 +48,8 @@ class GoalsController < ApplicationController
     @user = User.find_by(id: session[:user_id])
     @goal = Goal.find_by(id: params[:id])
     @user.goals.delete(@goal)
-    redirect "/goals/complete/#{@goal.id}"
+    session[:goal_id] = @goal.id
+    redirect "/goals/complete"
   end
 
   post '/goals' do

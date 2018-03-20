@@ -1,7 +1,11 @@
-<h2>Recently finished Goal</h2>
-<%=@goal.content%>
+<h2>Recently finished Goals</h2>
+<%@user_clone.goals.each do |goal|%>
+  <li><%=goal.content%></li>
 
+<%end%>
 <h2>Recently finished Subgoals</h2>
-<% @goal.subgoals.each do |subgoal| %>
-  <li><%=subgoal.content%></li>
+<%goal.goals.each do |goal|%>
+  <%goal.subgoals.each do |subgoal|%>
+    <li><%=subgoal.content%></li>
+  <%end%>
 <%end%>
