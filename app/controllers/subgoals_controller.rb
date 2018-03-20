@@ -12,6 +12,15 @@ class SubgoalsController < ApplicationController
     @user = User.find_by(id: session[:user_id])
     erb :'/subgoals/create_subgoal'
   end
+  post '/subgoals/complete/:id' do
+    @user = User.find_by(id: session[:user_id])
+    @goal = Goal.find_by(id: session[:goal_id])
+    @subgoal = Subgoal.find_by(id: params[:id])
+    @user.subgoals.delete(@subgoal)
+    session[:subgoal_id] = @subgoal.id
+    redirect "/goals/complete"
+  end
+
 
   post '/subgoals' do
     @goals = []
