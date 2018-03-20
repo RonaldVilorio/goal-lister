@@ -18,6 +18,7 @@ class GoalsController < ApplicationController
     if !logged_in?
       redirect to :'/login'
     else
+    # use regex to trim the subgoals
       @goal = params[:goal]
       @subgoals = params[:subgoals]
       erb :'/goals/complete_goals'
