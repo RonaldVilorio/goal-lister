@@ -1,11 +1,16 @@
 <h2>Recently finished Goals</h2>
-<%@user_dup.goals.each do |goal|%>
-  <li><%=goal.content%></li>
-
-<%end%>
-<h2>Recently finished Subgoals</h2>
-<%@user_dup.goals.each do |goal|%>
-  <%goal.subgoals.each do |subgoal|%>
-    <li><%=subgoal.content%></li>
+<%if @user_dup.goals.empty?%>
+  No goals at this time
+<%else%>
+  <%@user_dup.goals.each do |goal|%>
+    <li><%=goal.content%></li>
   <%end%>
+<%end%>
+
+
+<h2>Recently finished Subgoals</h2>
+<% if @subgoal == nil %>
+  No Subgoals at this time
+<%else%>
+  <li><%=@subgoal.content%></li>
 <%end%>

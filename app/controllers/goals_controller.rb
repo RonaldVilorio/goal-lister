@@ -21,7 +21,7 @@ class GoalsController < ApplicationController
       @goal = Goal.find_by(id: session[:goal_id])
       @user = User.find_by(id: session[:user_id])
       @user_dup = @user.dup
-      @user_dup.goals << @goal
+      @user_dup.goals << @goal if @goal != nil
       erb :'/goals/complete_goals'
     end
   end
