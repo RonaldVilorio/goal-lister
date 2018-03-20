@@ -25,7 +25,6 @@ class GoalsController < ApplicationController
     if !logged_in?
       redirect to :'/login'
     else
-      binding.pry
       @goal = Goal.find_by(id: params[:id])
       erb :'/goals/show_goal'
     end
@@ -34,13 +33,15 @@ class GoalsController < ApplicationController
     if !logged_in?
       redirect to :'/login'
     else
-      @goal = Goal.find_by( id: params[:id])
+      @goal = Goal.find_by(id: params[:id])
       erb :'/goals/edit_goal'
     end
   end
 
-  post '/goals/complete/:id' do
+  delete '/goals/complete/:id' do
     @goal = Goal.find_by(id: params[:id])
+    @cloned_goal = @goal.clone
+    
     redirect "/goals/complete"
   end
 
