@@ -6,7 +6,7 @@
 
 <%@goal.subgoals.each do |subgoal|%>
   <ul>
-    <a href="/goals/subgoal/<%=subgoal.id%>"><%=subgoal.content%></a>
+    <a href="/goals/subgoals/<%=subgoal.id%>"><%=subgoal.content%></a>
   </ul>
 <%end%>
 <% if flash.has?(:message) %>

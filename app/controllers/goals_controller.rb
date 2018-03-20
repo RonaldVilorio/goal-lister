@@ -42,6 +42,14 @@ class GoalsController < ApplicationController
       erb :'/goals/edit_goal'
     end
   end
+  get '/goals/subgoals/:id' do
+    if !logged_in?
+      redirect to :'/login'
+    else
+      @subgoal = Subgoal.find_by(id: params[:id])
+      erb :'/subgoals/edit_subgoal'
+    end
+  end
 
 
   post '/goals/complete/:id' do
