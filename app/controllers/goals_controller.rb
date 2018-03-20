@@ -14,10 +14,18 @@ class GoalsController < ApplicationController
       erb :'/goals/create_goal'
     end
   end
+  get '/goals/complete' do
+    if !logged_in?
+      redirect to :'/login'
+    else
+      erb :'/goals/complete_goals'
+    end
+  end
   get '/goals/:id' do
     if !logged_in?
       redirect to :'/login'
     else
+      binding.pry
       @goal = Goal.find_by(id: params[:id])
       erb :'/goals/show_goal'
     end
@@ -30,14 +38,9 @@ class GoalsController < ApplicationController
       erb :'/goals/edit_goal'
     end
   end
-  get '/goals/complete' do
-    erb :'/goals/complete_goals'
-  end
-  post '/goals/complete/:id' do
 
+  post '/goals/complete/:id' do
     @goal = Goal.find_by(id: params[:id])
-    session[:goal_id] = @goal.id
-    # to dissociate from it's user above code
     redirect "/goals/complete"
   end
 
@@ -113,8 +116,6 @@ class GoalsController < ApplicationController
     else
       flash[:message] = "You can't delete this goal"
     end
-
-
   end
 
 end

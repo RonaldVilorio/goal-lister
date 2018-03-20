@@ -25,9 +25,9 @@
   <%= flash[:message] %>
 <% end %>
 
-<h2>Complete and delete goal</h2>
-<form action="index.html" method="post">
-
+<h2>Complete Goal</h2>
+<form action="/goals/complete/<%=@goal.id%>" method="post">
+  <input type="submit" value="complete">
 </form>
 
 <h2>Delete Goal</h2>
