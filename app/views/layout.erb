@@ -2,9 +2,8 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="public/normalize.css">
-    <link rel="stylesheet" href="public/style.css">
-    <%= stylesheet_link_tag "style" %>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/style.css">
 
     <title>Goal lister</title>
   </head>
@@ -14,12 +13,11 @@
         <a href="/users/show"> Profile</a>
         <a href="/logout"> Log Out </a>
         <p>Welcome, <%=current_user.name %></p>
-
       <% else %>
         <a href="/signup">Sign Up</a>
         <a href="/login"> Log In </a>
       <%end %>
-      <%= yield%>
+      <%=yield%>
 
   </body>
 </html>
