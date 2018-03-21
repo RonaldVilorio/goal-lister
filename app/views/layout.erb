@@ -10,10 +10,21 @@
   <body>
 
       <% if logged_in? %>
-        <a href="/users/show"> Profile</a>
-        <a href="/logout"> Log Out </a>
+      <nav>
+        <div class="row">
+          <ul>
+            <li><a href="/goals/complete">complete goals</a></li>
+            <li><a href="/goals">View goals</a></li>
+            <li><a href="/subgoals">View all subgoals</a></li>
+            <li><a href="/goals/new">Create a new goal</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
         <p>Welcome, <%=current_user.name %></p>
       <% else %>
+      
         <a href="/signup">Sign Up</a>
         <a href="/login"> Log In </a>
       <%end %>
