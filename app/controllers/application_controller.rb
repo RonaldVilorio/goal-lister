@@ -7,6 +7,7 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "secret","password_security"
     use Rack::Flash
   end
+  
 
   get '/' do
     erb :index
