@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="public/style.css">
+
+    <title>Goal lister</title>
+  </head>
+  <body>
+
+      <% if logged_in? %>
+        <a href="/users/show"> Profile</a>
+        <a href="/logout"> Log Out </a>
+        <p>Welcome, <%=current_user.name %></p>
+
+      <% else %>
+        <a href="/signup">Sign Up</a>
+        <a href="/login"> Log In </a>
+      <%end %>
+      <%= yield%>
+
+  </body>
+</html>
