@@ -11,7 +11,7 @@
 
       <% if logged_in? %>
       <nav>
-        <div class="row">
+        <div class="topnav">
           <ul>
             <li><a href="/goals/complete">complete goals</a></li>
             <li><a href="/goals">View goals</a></li>
@@ -22,9 +22,8 @@
           </ul>
         </div>
       </nav>
-        <p>Welcome, <%=current_user.name %></p>
       <% else %>
-      
+
         <a href="/signup">Sign Up</a>
         <a href="/login"> Log In </a>
       <%end %>
