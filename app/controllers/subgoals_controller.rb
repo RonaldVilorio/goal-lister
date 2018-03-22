@@ -33,7 +33,6 @@ class SubgoalsController < ApplicationController
     redirect "/subgoals/complete"
   end
 
-
   post '/subgoals' do
     @goals = []
     params[:goal_ids].each do |id|

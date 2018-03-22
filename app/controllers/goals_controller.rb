@@ -51,7 +51,6 @@ class GoalsController < ApplicationController
     end
   end
 
-
   post '/goals/complete/:id' do
     @user = User.find_by(id: session[:user_id])
     @goal = Goal.find_by(id: params[:id])
