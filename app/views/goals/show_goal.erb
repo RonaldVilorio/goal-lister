@@ -1,21 +1,27 @@
-<h1>Goal:</h1>
+<div class="container">
+  <h3>Goal:</h3>
+  <br>
 
-<%=@goal.content%>
+  <%=@goal.content%>
+  <br><br>
 
-<h2>Subgoals for this goal</h2>
+  <h3>Subgoals for this goal</h3>
+  <br>
 
-<%@goal.subgoals.each do |subgoal|%>
-  <ul>
-    <a href="/goals/subgoals/<%=subgoal.id%>"><%=subgoal.content%></a>
-  </ul>
-<%end%>
-<% if flash.has?(:message) %>
-  <%= flash[:message] %>
-<% end %>
+  <%@goal.subgoals.each do |subgoal|%>
+    <ul>
+      <a href="/goals/subgoals/<%=subgoal.id%>"><%=subgoal.content%></a>
+    </ul>
+  <%end%>
+  <% if flash.has?(:message) %>
+    <%= flash[:message] %>
+  <% end %>
 
-<br>
+  <br>
+
+
+
+</div>
 <a href="/subgoals/new">Create more subgoals for your goals</a>
 <br><br>
 <a href="/goals/<%=@goal.id%>/edit">Edit Goal</a>
-<a href="/goals">Back to Goals</a>
-<a href="/show">Back to profile</a>

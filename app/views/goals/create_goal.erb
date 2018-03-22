@@ -1,31 +1,34 @@
+<div class="container">
+  <form action="/goals" method="post">
+    <h3><label for="goal">Goal:</label></h3>
+    <input type="text" name="goal" id="goal" required>
+    <br><br>
 
-<form action="/goals" method="post">
-  <h3><label for="goal">Goal:</label></h3>
-  <input type="text" name="goal" id="goal" required>
-  <br><br>
+    <h3>Click the button to add a Subgoal</h3>
+    <br>
 
-  <h3>Click the button to add a Subgoal</h3>
-  <br>
+    <input type="button" value="Add" onclick="addInput()"/>
 
-  <input type="button" value="Add" onclick="addInput()"/>
+    <span id="response"></span>
+    <script>
+    var countBox = 1;
+    var boxName = 0;
+    function addInput()
+    {
+         var boxName="subgoal"+countBox;
+    document.getElementById('response').innerHTML+='<br/><input type="text" name="subgoals['+boxName+']" id="'+boxName+'" value="'+boxName+'" "  /><br/>';
+         countBox += 1;
+    }
+    </script>
 
-  <span id="response"></span>
-  <script>
-  var countBox = 1;
-  var boxName = 0;
-  function addInput()
-  {
-       var boxName="subgoal"+countBox;
-  document.getElementById('response').innerHTML+='<br/><input type="text" name="subgoals['+boxName+']" id="'+boxName+'" value="'+boxName+'" "  /><br/>';
-       countBox += 1;
-  }
-  </script>
+    <br><br>
 
-  <br><br>
+    <input type="submit" value="Create">
 
-  <input type="submit" value="Create">
+  </form>
 
-</form>
+</div>
+
 
 <% if flash.has?(:message) %>
   <%= flash[:message] %>
