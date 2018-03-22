@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 html {
-    background-color: #fff;
+    background-color: rgba(201, 201, 201, 0.98);
     color: #555;
     font-family: 'Lato', 'Arial', sans-serif;
     font-size: 20px;
@@ -98,6 +98,10 @@ a:active{
 
 /*form styling***********/
 /* Full-width input fields */
+form{
+  display: inline-block;
+  text-align: center;
+}
   input[type=text], input[type=password], input[type=email] {
   width: 100%;
   padding: 15px;
@@ -119,7 +123,8 @@ hr {
 
 /* Add padding to container elements */
 .container {
-  padding: 16px;
+  padding: 0px 300px;
+
 }
 
 /* Clear floats */
