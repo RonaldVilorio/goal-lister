@@ -1,6 +1,10 @@
 
-<h2>Complete Subgoal</h2>
-<h3><%=@subgoal.content%></h3>
-<form action="/subgoals/complete/<%=@subgoal.id%>" method="post">
-  <input type="submit" value="complete">
-</form>
+<h2>Complete Subgoal?</h2>
+<div class="container">
+  <h3><%=@subgoal.content%></h3>
+  <form action="/subgoals/complete/<%=@subgoal.id%>" method="post">
+    <br>
+    <input type="submit" value="complete">
+  </form>
+
+</div>

@@ -1,12 +1,16 @@
+<div class="container">
+  <%count = 0%>
+  <%@user.goals.each do |goal|%>
+    <%goal.subgoals.each do |subgoal|%>
+      <ul>
+        <h3><%=subgoal.content%></h3>
+        <br>
+        <%count = count + 1%>
+      </ul>
+      <%end%>
+  <%end%>
+</div>
+<br>
 
-<%count = 0%>
-<%@user.goals.each do |goal|%>
-  <%goal.subgoals.each do |subgoal|%>
-    <ul>
-      <%=subgoal.content%>
-      <%count = count + 1%>
-    </ul>
-    <%end%>
-<%end%>
 
 <h2>You have a total of <%=count%> subgoals</h2>

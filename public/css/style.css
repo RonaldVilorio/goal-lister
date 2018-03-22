@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 html {
-    background-color: rgba(201, 201, 201, 0.98);
+    background-color: rgba(201, 201, 201, 0.99);
     color: #555;
     font-family: 'Lato', 'Arial', sans-serif;
     font-size: 20px;
@@ -48,7 +48,7 @@ h2{
 h2:after {
     display: block;
     height: 2px;
-    background-color: #e67e22;
+    background-color: rgba(15, 182, 244, 0.98);
     content: " ";
     width: 100px;
     margin: 0 auto;
@@ -58,9 +58,9 @@ h2:after {
 
 a:link,
 a:visited{
-    color: #e67e22;
+    color: rgba(15, 68, 244, 0.98);
     text-decoration: none;
-    border-bottom: 1px solid #e67e22;
+    border-bottom: 1px solid #fff;
     transition: border-bottom 0.2s, color 0.2s;
 }
 a:hover,
@@ -74,7 +74,7 @@ a:active{
    float:right;
 }
 .topnav{
-  background-color: #333;
+  background-color: rgba(15, 182, 244, 0.98);
   overflow: hidden;
 }
 .topnav a {

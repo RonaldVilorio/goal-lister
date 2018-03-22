@@ -1,9 +1,14 @@
+<div class="container">
+  <%count = 0%>
+  <%@user.goals.each do |goal|%>
+    <ul>
+      <a href="/goals/<%=goal.id%>"><%=goal.content%></a>
+      <br>
+    </ul>
+    <%count = count + 1%>
+  <%end%>
 
-<%count = 0%>
-<%@user.goals.each do |goal|%>
-  <ul>
-    <a href="/goals/<%=goal.id%>"><%=goal.content%></a>
-  </ul>
-  <%count = count + 1%>
-<%end%>
+</div>
+<br><br>
+
 <h2>You have a total of <%=count%> goals</h2>

@@ -1,32 +1,37 @@
-<form action="/subgoals" method="post">
+<div class="container">
+  <form action="/subgoals" method="post">
 
-  <label>Click the button to add a Subgoal</label>
-  <br>
+    <label>Click the button to add a Subgoal</label>
+    <br><br>
 
-  <input type="button" value="Add" onclick="addInput()"/>
-
-  <span id="response"></span>
-  <script>
-  var countBox = 1;
-  var boxName = 0;
-  function addInput()
-  {
-       var boxName="subgoal"+countBox;
-  document.getElementById('response').innerHTML+='<br/><input type="text" name="subgoals['+boxName+']" id="'+boxName+'" value="'+boxName+'" "  /><br/>';
-       countBox += 1;
-  }
-  </script>
-
-  <br><br>
-  <label>Pick a goal/goals to add these subgoals to</label>
-  <br><br>
-
-    <%@user.goals.each do |goal|%>
-      <li><input type="checkbox" name="goal_ids[]" value="<%=goal.id%>" id="<%=goal.content%>" required><%=goal.content%></li>
-    <%end%>
-
+    <input type="button" value="Add" onclick="addInput()"/>
     <br>
 
-  <input type="submit" value="Create">
+    <span id="response"></span>
+    <script>
+    var countBox = 1;
+    var boxName = 0;
+    function addInput()
+    {
+         var boxName="subgoal"+countBox;
+    document.getElementById('response').innerHTML+='<br/><input type="text" name="subgoals['+boxName+']" id="'+boxName+'" value="'+boxName+'" "  /><br/>';
+         countBox += 1;
+    }
+    </script>
 
-</form>
+    <br><br>
+    <label>Pick a goal/goals to add these subgoals to</label>
+    <br><br>
+
+      <%@user.goals.each do |goal|%>
+        <input type="checkbox" name="goal_ids[]" value="<%=goal.id%>" id="<%=goal.content%>" required> <%=goal.content%>
+      <%end%>
+
+      <br><br>
+
+    <input type="submit" value="Create">
+
+  </form>
+
+
+</div>

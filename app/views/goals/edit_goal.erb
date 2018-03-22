@@ -1,34 +1,40 @@
-<h1><%=@goal.content%></h1>
+<div class="container">
+  <h2><%=@goal.content%></h2>
 
-<form action="/goals/<%=@goal.id%>" method="post">
-  <input type="hidden" name="_method" value="patch" id="hidden">
-  <label for="goal">Edit Goal</label>
-  <input type="text" name="goal" value="" id="content">
+  <form action="/goals/<%=@goal.id%>" method="post">
+    <input type="hidden" name="_method" value="patch" id="hidden">
+    <label for="goal">Edit Goal</label>
+    <input type="text" name="goal" value="" id="content">
 
-  <br><br>
-  Edit Subgoals for this Goal:
-  <br><br>
+    <br><br>
+    Edit Subgoals for this Goal:
+    <br><br>
 
-  <%count = 1%>
+    <%count = 1%>
 
-  <%@goal.subgoals.each do |subgoal|%>
-    <ul>
-        <%=count%>. <label for="subgoal"><%=subgoal.content%></label>
-        <input type="text" name="subgoals[subgoal<%=count%>]" value="<%=subgoal.content%>" id="subgoal<%=count%>">
-      <%count = count+1%>
-    </ul>
-  <%end%>
-  <br><br>
-  <input type="submit" value="Edit">
-</form>
-<% if flash.has?(:message) %>
-  <%= flash[:message] %>
-<% end %>
+    <%@goal.subgoals.each do |subgoal|%>
+      <ul>
+          <%=count%>. <label for="subgoal"><%=subgoal.content%></label>
+          <input type="text" name="subgoals[subgoal<%=count%>]" value="<%=subgoal.content%>" id="subgoal<%=count%>">
+        <%count = count+1%>
+      </ul>
+    <%end%>
+    <br><br>
+    <input type="submit" value="Edit">
+  </form>
+  <% if flash.has?(:message) %>
+    <%= flash[:message] %>
+  <% end %>
 
-<h2>Complete Goal</h2>
-<form action="/goals/complete/<%=@goal.id%>" method="post">
-  <input type="submit" value="complete">
-</form>
+
+
+  <h2>Complete Goal</h2>
+  <form action="/goals/complete/<%=@goal.id%>" method="post">
+    <input type="submit" value="complete">
+  </form>
+
+
+
 
 <h2>Delete Goal</h2>
 
@@ -36,6 +42,10 @@
   <input id="hidden" type="hidden" name="_method" value="delete">
   <input type="submit" value="Delete Goal">
 </form>
+
+</div>
+
+
 
 <% if flash.has?(:message) %>
   <%= flash[:message] %>
