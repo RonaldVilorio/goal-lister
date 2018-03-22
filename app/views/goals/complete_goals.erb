@@ -1,7 +1,7 @@
 
 <h2>Recently finished Goals</h2>
 <div class="container">
-  <%if @user_dup.goals.empty?%>
+  <%if @user_dup == nil || @user_dup.goals.empty?%>
     No goals at this time
   <%else%>
     <%@user_dup.goals.each do |goal|%>
