@@ -77,7 +77,10 @@ class GoalsController < ApplicationController
         end
       end
     end
+
+    @goal.user_id = @user.id
     @user.goals << @goal
+    # binding.pry
 
     params[:subgoals].each do |key,sgoal|
       sgoal = sgoal.strip
@@ -94,7 +97,7 @@ class GoalsController < ApplicationController
 
   end
   patch '/goals/:id' do
-
+    
     @user = User.find_by(id: session[:user_id])
     @goal = Goal.find_or_create_by(content: params[:goal])
 
