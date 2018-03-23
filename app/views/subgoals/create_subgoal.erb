@@ -24,7 +24,7 @@
     <br><br>
 
       <%@user.goals.each do |goal|%>
-        <input type="checkbox" name="goal_ids[]" value="<%=goal.id%>" id="<%=goal.content%>" required> <%=goal.content%>
+        <input type="checkbox" name="goal_ids[]" value="<%=goal.id%>" id="<%=goal.content%>"> <%=goal.content%>
       <%end%>
 
       <br><br>
