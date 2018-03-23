@@ -5,7 +5,7 @@
     No goals at this time
   <%else%>
     <%@user_dup.goals.each do |goal|%>
-      <li><%=goal.content%></li>
+      <li><h3><%=goal.content%></h3></li>
     <%end%>
   <%end%>
 </div>
@@ -15,6 +15,6 @@
   <% if @subgoal == nil %>
     No Subgoals at this time
   <%else%>
-    <li><%=@subgoal.content%></li>
+    <li><h3><%=@subgoal.content%></h3></li>
   <%end%>
 </div>

@@ -2,7 +2,7 @@
   <%count = 0%>
   <%@user.goals.each do |goal|%>
     <ul>
-      <a href="/goals/<%=goal.id%>"><%=goal.content%></a>
+      <a href="/goals/<%=goal.id%>"><h3><%=goal.content%></h3></a>
       <br>
     </ul>
     <%count = count + 1%>
