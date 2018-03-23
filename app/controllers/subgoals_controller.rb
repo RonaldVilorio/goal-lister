@@ -34,17 +34,19 @@ class SubgoalsController < ApplicationController
   end
 
   post '/subgoals' do
+
     @goals = []
     params[:goal_ids].each do |id|
       @goals << Goal.find_by(id: id.to_i)
     end
-
+    @subgoals = []
+    params[:subgoals].each do |key,sgoal|
+      @subgoals << Subgoal.find_or_create_by(content: sgoal)
+    end
     @goals.each do |goal|
-      goal.subgoals.each do |subgoal|
-        params[:subgoals].each do |key,sgoal|
-          goal.subgoals << Subgoal.create(content: sgoal)
-          goal.save
-        end
+      @subgoals.each do |sgoal|
+        goal.subgoals << sgoal
+        goal.save
       end
     end
     redirect to '/goals'
