@@ -52,6 +52,22 @@ class SubgoalsController < ApplicationController
     redirect to '/goals'
   end
 
+  delete '/subgoals/:id' do
+    @subgoal = Subgoal.find_by(id: params[:id])
+    @user = User.find_by(id: session[:user_id])
+    @subgoal.users.each do |user|
+      if user == @user
+        user.subgoals.each do |subgoal|
+          subgoal.delete if @subgoal.content == subgoal.content
+        end
+        redirect '/subgoals'
+      else
+        flash[:message] = "You can't delete this goal"
+      end
+    end
+
+  end
+
 
 
 end
