@@ -4,7 +4,7 @@
   <form action="/goals/<%=@goal.id%>" method="post">
     <input type="hidden" name="_method" value="patch" id="hidden">
     <label for="goal">Edit Goal</label>
-    <input type="text" name="goal" value="" id="content">
+    <input type="text" name="goal" value="<%=@goal.content%>" id="content">
 
     <br><br>
     Edit Subgoals for this Goal:

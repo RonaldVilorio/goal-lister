@@ -96,8 +96,8 @@ class GoalsController < ApplicationController
   patch '/goals/:id' do
 
     @user = User.find_by(id: session[:user_id])
+    @goal = Goal.find_or_create_by(content: params[:goal])
 
-    @goal = Goal.find_by(params[:id])
     if @goal.user == @user
       @goal.content = params[:goal]
       count = 1
@@ -109,10 +109,9 @@ class GoalsController < ApplicationController
         end
         count = count + 1
       end
-      @goal.save
-      @user = User.find_by(id: session[:user_id])
 
-      @user.goals << @goal if @goal.content != "" && @user != nil
+      @goal.save
+      @user.goals << @goal if !@goal.content.empty? && @user != nil
       redirect to :"/goals/#{@goal.id}/edit"
     else
       flash[:message] = "You can't edit this goal"
