@@ -27,18 +27,24 @@ class GoalsController < ApplicationController
   end
 
   get '/goals/:id' do
+    @user = User.find(session[:user_id])
+    @goal = Goal.find_by(id: params[:id])
     if !logged_in?
       redirect to :'/login'
+    elsif @user.id != @goal.user_id
+      redirect to :'/goals'
     else
-      @goal = Goal.find_by(id: params[:id])
       erb :'/goals/show_goal'
     end
   end
   get '/goals/:id/edit' do
+    @user = User.find(session[:user_id])
+    @goal = Goal.find_by(id: params[:id])
     if !logged_in?
       redirect to :'/login'
+    elsif @user.id != @goal.user_id
+      redirect to :'/goals'
     else
-      @goal = Goal.find_by(id: params[:id])
       erb :'/goals/edit_goal'
     end
   end
