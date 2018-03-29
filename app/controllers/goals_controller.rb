@@ -63,25 +63,17 @@ class GoalsController < ApplicationController
 
     @user = User.find_by(id: session[:user_id])
 
-    @goal = Goal.create(content: params[:goal]) if !params[:goal].empty? && @user.goals.empty? && @user != nil
+    @goal = @user.goals.build(content: params[:goal]) if !params[:goal].empty? && @user != nil
 
-    if @goal == nil && @user != nil
-      @user.goals.each do |goal|
-        goal.content = goal.content.downcase.strip
-        params[:goal] = params[:goal].downcase.strip
-        if goal.content == params[:goal]
-          flash[:message] = "No duplicate goals"
-          redirect "/goals/new"
-        else
-          @goal = Goal.create(content: params[:goal])
-        end
-      end
+    if @goal.save == true
+      @goal.save
+    else
+      flash[:message] = "No duplicate goals"
+      redirect "/goals/new"
     end
 
-    @goal.user_id = @user.id
-    @user.goals << @goal
-    # binding.pry
-
+   #helper method
+   #goal.create_subgoals(params[:subgoals])
     params[:subgoals].each do |key,sgoal|
       sgoal = sgoal.strip
         if !sgoal.empty?
@@ -97,7 +89,7 @@ class GoalsController < ApplicationController
 
   end
   patch '/goals/:id' do
-    
+
     @user = User.find_by(id: session[:user_id])
     @goal = Goal.find_or_create_by(content: params[:goal])
 
