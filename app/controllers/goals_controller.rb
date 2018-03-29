@@ -72,20 +72,9 @@ class GoalsController < ApplicationController
       redirect "/goals/new"
     end
 
-   #helper method
-   #goal.create_subgoals(params[:subgoals])
-    params[:subgoals].each do |key,sgoal|
-      sgoal = sgoal.strip
-        if !sgoal.empty?
-          @goal.subgoals << Subgoal.create(content: sgoal)
-          @goal.save
-        elsif sgoal.empty?
-          flash[:message] = "You can't submit empty subgoals"
-          redirect "/goals/new"
-        end
-    end
+   @goal.create_subgoals(params[:subgoals])
 
-    redirect "/goals/#{@goal.id}"
+   redirect "/goals/#{@goal.id}"
 
   end
   patch '/goals/:id' do
