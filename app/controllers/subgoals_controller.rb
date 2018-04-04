@@ -3,13 +3,13 @@ class SubgoalsController < ApplicationController
     if !logged_in?
       redirect to :'/login'
     else
-      @user = User.find_by(id: session[:user_id])
+      find_user
       erb :'/subgoals/subgoals'
     end
   end
 
   get '/subgoals/new' do
-    @user = User.find_by(id: session[:user_id])
+    find_user
     erb :'/subgoals/create_subgoal'
   end
   get '/subgoals/complete' do
@@ -23,7 +23,7 @@ class SubgoalsController < ApplicationController
 
   post '/subgoals/complete/:id' do
     # binding.pry
-    @user = User.find_by(id: session[:user_id])
+    find_user
     @subgoal = Subgoal.find_by(id: params[:id])
     @user.goals.each do |goal|
       goal.subgoals.delete(@subgoal)
@@ -54,7 +54,7 @@ class SubgoalsController < ApplicationController
 
   delete '/subgoals/:id' do
     @subgoal = Subgoal.find_by(id: params[:id])
-    @user = User.find_by(id: session[:user_id])
+    find_user
     @subgoal.users.each do |user|
       if user == @user
         user.subgoals.each do |subgoal|
@@ -67,7 +67,6 @@ class SubgoalsController < ApplicationController
     end
 
   end
-
 
 
 end

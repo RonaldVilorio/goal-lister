@@ -3,7 +3,7 @@ class GoalsController < ApplicationController
     if !logged_in?
       redirect to :'/login'
     else
-      @user = User.find_by(id: session[:user_id])
+      find_user
       erb :'/goals/goals'
     end
   end
@@ -26,8 +26,8 @@ class GoalsController < ApplicationController
     if !logged_in?
       redirect to :'/login'
     else
-      @goal = Goal.find_by(id: session[:goal_id])
-      @user = User.find_by(id: session[:user_id])
+      find_goal
+      find_user
       @user_dup = @user.dup
       @user_dup.goals << @goal if @goal != nil
       erb :'/goals/complete_goals'
@@ -35,8 +35,8 @@ class GoalsController < ApplicationController
   end
 
   get '/goals/:id' do
-    @user = User.find(session[:user_id])
-    @goal = Goal.find_by(id: params[:id])
+    find_user
+    find_goal
     if !logged_in?
       redirect to :'/login'
     elsif @user.id != @goal.user_id
@@ -46,8 +46,8 @@ class GoalsController < ApplicationController
     end
   end
   get '/goals/:id/edit' do
-    @user = User.find(session[:user_id])
-    @goal = Goal.find_by(id: params[:id])
+    find_user
+    find_goal
     if !logged_in?
       redirect to :'/login'
     elsif @user.id != @goal.user_id
@@ -66,8 +66,8 @@ class GoalsController < ApplicationController
   end
 
   post '/goals/complete/:id' do
-    @user = User.find_by(id: session[:user_id])
-    @goal = Goal.find_by(id: params[:id])
+    find_user
+    find_goal
     @user.goals.delete(@goal)
     session[:goal_id] = @goal.id
     redirect "/goals/complete"
@@ -75,7 +75,7 @@ class GoalsController < ApplicationController
 
   post '/goals' do
 
-    @user = User.find_by(id: session[:user_id])
+    find_user
 
     @goal = @user.goals.build(content: params[:goal]) if !params[:goal].empty? && @user != nil
 
@@ -93,7 +93,7 @@ class GoalsController < ApplicationController
   end
   patch '/goals/:id' do
 
-    @user = User.find_by(id: session[:user_id])
+    find_user
     @goal = Goal.find_or_create_by(content: params[:goal])
     @goal.content = params[:goal]
 
@@ -113,8 +113,8 @@ class GoalsController < ApplicationController
 
   end
   delete '/goals/:id' do
-    @goal = Goal.find_by(id: params[:id])
-    @user = User.find_by(id: session[:user_id])
+    find_goal
+    find_user
     if @goal.user == @user
       @goal.delete
       @goal.subgoals.each do |subgoal|
