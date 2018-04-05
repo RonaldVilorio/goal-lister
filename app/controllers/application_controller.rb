@@ -20,8 +20,9 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      User.find(session[:user_id])
+      @user ||= User.find(session[:user_id])
     end
+
     def find_goal
       @goal = Goal.find_by(id: params[:id])
     end

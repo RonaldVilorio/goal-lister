@@ -3,7 +3,7 @@ class GoalsController < ApplicationController
     if !logged_in?
       redirect to :'/login'
     else
-      find_user
+      current_user
       erb :'/goals/goals'
     end
   end
@@ -27,7 +27,7 @@ class GoalsController < ApplicationController
       redirect to :'/login'
     else
       find_goal
-      find_user
+      current_user
       @user_dup = @user.dup
       @user_dup.goals << @goal if @goal != nil
       erb :'/goals/complete_goals'
@@ -35,7 +35,7 @@ class GoalsController < ApplicationController
   end
 
   get '/goals/:id' do
-    find_user
+    current_user
     find_goal
     if !logged_in?
       redirect to :'/login'
@@ -46,7 +46,7 @@ class GoalsController < ApplicationController
     end
   end
   get '/goals/:id/edit' do
-    find_user
+    current_user
     find_goal
     if !logged_in?
       redirect to :'/login'
@@ -66,7 +66,7 @@ class GoalsController < ApplicationController
   end
 
   post '/goals/complete/:id' do
-    find_user
+    current_user
     find_goal
     @user.goals.delete(@goal)
     session[:goal_id] = @goal.id
@@ -75,9 +75,9 @@ class GoalsController < ApplicationController
 
   post '/goals' do
 
-    find_user
+    current_user
 
-    @goal = @user.goals.build(content: params[:goal]) if !params[:goal].empty? && @user != nil
+    @goal = @user.goals.build(content: params[:goal]) if !params[:goal].empty?
 
     if @goal.save == true
       @goal.save
@@ -93,7 +93,7 @@ class GoalsController < ApplicationController
   end
   patch '/goals/:id' do
 
-    find_user
+    current_user
     @goal = Goal.find_or_create_by(content: params[:goal])
     @goal.content = params[:goal]
 
@@ -114,7 +114,7 @@ class GoalsController < ApplicationController
   end
   delete '/goals/:id' do
     find_goal
-    find_user
+    current_user
     if @goal.user == @user
       @goal.delete
       @goal.subgoals.each do |subgoal|
